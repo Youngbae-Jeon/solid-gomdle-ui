@@ -1,0 +1,10 @@
+.SelectButton {
+	.Button {
+		&:not(:first-child) {
+			@apply rounded-l-none;
+		}
+		&:not(:last-child) {
+			@apply rounded-r-none border-r-0;
+		}
+	}
+}

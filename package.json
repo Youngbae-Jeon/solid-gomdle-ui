@@ -1,0 +1,44 @@
+{
+	"name": "@gomdle/solid-gomdle-ui",
+	"description": "UI components for SolidJs",
+	"version": "0.1.0",
+	"keywords": [
+		"ui",
+		"solidjs"
+	],
+	"license": "MIT",
+	"author": {
+		"name": "Youngbae Jeon",
+		"email": "jeonyb@gmail.com"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Youngbae-Jeon/solid-gomdle-ui.git"
+	},
+	"main": "dist/bundle.js",
+	"types": "dist/types/index.d.ts",
+	"type": "module",
+	"scripts": {
+		"build": "rollup -c",
+		"watch": "rollup -cw"
+	},
+	"devDependencies": {
+		"rollup": "^4.13.2",
+		"rollup-plugin-postcss": "^4.0.2",
+		"rollup-preset-solid": "^2.0.1",
+		"sass": "^1.74.1",
+		"tailwindcss": "^3.4.3"
+	},
+	"peerDependencies": {
+		"solid-js": "^1.8.16",
+		"solid-transition-group": "^0.2.3"
+	},
+	"dependencies": {
+		"clsx": "^2.1.0",
+		"solid-icons": "^1.1.0"
+	},
+	"files": [
+		"dist",
+		"!dist/source"
+	]
+}

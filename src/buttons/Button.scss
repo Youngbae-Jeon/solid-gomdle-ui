@@ -1,0 +1,42 @@
+.Button {
+	@apply inline-block py-2.5 px-3 rounded border leading-none align-top
+		text-[0.75rem] font-medium outline-none ring-offset-0;
+
+	&:not(:disabled) {
+		@apply
+			focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2 focus:relative focus:z-[1]
+			transition duration-200 whitespace-nowrap;
+	}
+
+	&:disabled {
+		@apply opacity-50;
+	}
+
+	&.primary {
+		@apply border-indigo-500 bg-indigo-500;
+
+		&:not(:disabled) {
+			@apply hover:bg-indigo-600;
+		}
+
+		&.border-only {
+			@apply border-gray-300 bg-white;
+		
+			&:not(:disabled) {
+				@apply hover:bg-indigo-100;
+			}
+		}
+
+		&:not(.border-only) {
+			@apply text-white;
+		}
+	}
+
+	&.text {
+		@apply border-transparent bg-transparent;
+
+		&:not(:disabled) {
+			@apply hover:bg-gray-100 hover:border-gray-100;
+		}
+	}
+}

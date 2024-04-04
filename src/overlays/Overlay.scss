@@ -1,0 +1,43 @@
+.Overlay {
+	@apply fixed bg-white z-[100];
+}
+
+.drop-down-enter-active {
+	transition: opacity 200ms 50ms, transform 200ms;
+	transform-origin: top;
+}
+.drop-down-enter {
+	transform: translateY(-1rem) scaleY(0);
+	opacity: 0;
+}
+.drop-down-enter-to {
+	transform: translateY(0px) scaleY(1);
+	opacity: 1;
+}
+.drop-down-exit-active {
+	transition: opacity 100ms, transform 100ms;
+	transform-origin: top;
+}
+.drop-down-exit-to {
+	transform: scaleY(0.7);
+	opacity: 0;
+}
+
+.fade-up-enter-active {
+	transition: opacity 200ms 50ms, transform 200ms;
+}
+.fade-up-enter {
+	transform: translateY(10rem);
+	opacity: 0;
+}
+.fade-up-enter-to {
+	transform: translateY(0px);
+	opacity: 1;
+}
+.fade-up-exit-active {
+	transition: opacity 100ms, transform 100ms;
+	transform-origin: top;
+}
+.fade-up-exit-to {
+	opacity: 0;
+}

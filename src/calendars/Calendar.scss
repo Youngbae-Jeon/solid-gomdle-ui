@@ -1,0 +1,18 @@
+.Calendar {
+	@apply grid grid-cols-7 gap-x-1 gap-y-2 text-[0.75rem] ;
+
+	.day {
+		@apply text-center py-2 px-2 leading-none cursor-pointer rounded-full hover:bg-indigo-100;
+		
+		&.selected {
+			@apply bg-indigo-500 text-white;
+		}
+	}
+	.sunday,
+	.saturday {
+		@apply text-red-500;
+	}
+	.other-month {
+		@apply text-gray-300;
+	}
+}
