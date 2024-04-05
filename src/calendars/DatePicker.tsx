@@ -1,9 +1,9 @@
 import { JSX, createSignal } from "solid-js";
 import { Month } from "../utils/datelike";
-import { Overlay } from "./Overlay";
+import { Overlay } from "../overlays/Overlay";
 import { FaSolidChevronLeft, FaSolidChevronRight } from "solid-icons/fa";
 import { Button } from "../buttons/Button";
-import { Calendar } from "../calendars/Calendar";
+import { Calendar } from "./Calendar";
 
 interface Props {
 	value?: Date;
