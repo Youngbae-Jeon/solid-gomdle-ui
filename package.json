@@ -1,7 +1,7 @@
 {
 	"name": "@gomdle/solid-gomdle-ui",
 	"description": "UI components for SolidJs",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"keywords": [
 		"ui",
 		"solidjs"
@@ -23,6 +23,7 @@
 		"watch": "rollup -cw"
 	},
 	"devDependencies": {
+		"@types/lodash": "^4.17.0",
 		"rollup": "^4.13.2",
 		"rollup-plugin-postcss": "^4.0.2",
 		"rollup-preset-solid": "^2.0.1",
@@ -30,15 +31,18 @@
 		"tailwindcss": "^3.4.3"
 	},
 	"peerDependencies": {
-		"solid-js": "^1.8.16",
-		"solid-transition-group": "^0.2.3"
+		"solid-js": "^1.8.16"
 	},
 	"dependencies": {
+		"@tanstack/solid-table": "^8.15.3",
 		"clsx": "^2.1.0",
-		"solid-icons": "^1.1.0"
+		"lodash": "^4.17.21",
+		"solid-icons": "^1.1.0",
+		"solid-transition-group": "^0.2.3"
 	},
 	"files": [
 		"dist",
-		"!dist/source"
+		"!dist/source",
+		"!dist/bundle.js.map"
 	]
 }

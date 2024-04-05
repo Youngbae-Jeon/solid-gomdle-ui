@@ -2,7 +2,7 @@
 
 ## Installing
 ```sh
-npm install @gomdle/solid-gomdle-ui solid-transition-group
+npm install @gomdle/solid-gomdle-ui
 ```
 
 ## Button

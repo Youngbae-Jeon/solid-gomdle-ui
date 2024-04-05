@@ -1,0 +1,72 @@
+.DataTable {
+	@apply overflow-x-auto;
+
+	table {
+		@apply table-fixed min-w-full cursor-default;
+	}
+
+	thead > tr:not(:first-child) {
+		@apply border-t;
+	}
+	tbody > tr,
+	tfoot > tr {
+		@apply border-t border-gray-200;
+	}
+
+	th {
+		@apply py-1 px-2 font-medium overflow-hidden text-ellipsis;
+	}
+	td {
+		@apply py-1 px-2 overflow-hidden text-ellipsis;
+	}
+	tfoot > tr > td {
+		@apply font-medium;
+	}
+
+	thead > tr,
+	tfoot > tr {
+		@apply bg-slate-50;
+	}
+
+	tbody > tr {
+		&:hover {
+			@apply bg-indigo-50 border-gray-300;
+		}
+		&:hover + tr {
+			@apply border-gray-300;
+		}
+
+		&.selected {
+			@apply bg-indigo-100 border-indigo-200 text-indigo-700;
+		}
+		&.selected + tr {
+			@apply border-indigo-200;
+		}
+	}
+
+	&.striped-rows {
+		tbody > tr:nth-child(even) {
+			@apply bg-slate-50;
+
+			&:hover {
+				@apply bg-indigo-50 border-gray-300;
+			}
+
+			&.selected {
+				@apply bg-indigo-100 border-indigo-200 text-indigo-700;
+			}
+			&.selected + tr {
+				@apply border-indigo-200;
+			}
+		}
+	}
+	&.grid-lines {
+		th:not(:first-child),
+		td:not(:first-child) {
+			@apply border-l;
+		}
+	}
+	&.fixed-height {
+		@apply overflow-y-auto;
+	}
+}

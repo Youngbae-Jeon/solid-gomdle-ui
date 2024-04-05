@@ -10,7 +10,6 @@ interface Props {
 	onChange?: (e: {value: boolean}) => void;
 }
 export function InputSwitch(props: Props) {
-	createEffect(() => console.log('InputSwitch', props.checked));
 	return (
 		<div class={clsx('InputSwitch', props.class, props.checked && 'on')}
 			style={props.style}
