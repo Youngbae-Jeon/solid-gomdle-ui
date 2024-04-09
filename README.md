@@ -6,7 +6,7 @@ npm install @gomdle/solid-gomdle-ui
 ```
 
 ## Button
-```jsx
+```tsx
 import { Button } from "@gomdle/solid-gomdle-ui";
 import { FaSolidCheck } from "solid-icons/fa";
 
@@ -28,7 +28,7 @@ import { FaSolidCheck } from "solid-icons/fa";
 ```
 
 ## Select Button
-```jsx
+```tsx
 import { SelectButton } from "@gomdle/solid-gomdle-ui";
 
 const options = [
@@ -47,7 +47,7 @@ const [selected, setSelected] = createSignal(options[0].value);
 ```
 
 ## Calendar
-```jsx
+```tsx
 import { Calendar, Month } from "@gomdle/solid-gomdle-ui";
 
 const [selected, setSelected] = createSignal(new Date());
@@ -61,7 +61,7 @@ const month = () => new Month(selected());
 ```
 
 ## DatePicker
-```jsx
+```tsx
 import { DatePicker } from '@gomdle/solid-gomdle-ui';
 
 const [value, setValue] = createSignal(new Date());
@@ -73,7 +73,7 @@ const [value, setValue] = createSignal(new Date());
 ```
 
 ## InputSwitch
-```jsx
+```tsx
 import { InputSwitch } from "@gomdle/solid-gomdle-ui";
 
 const [showSecretValues, setSecretValues] = createSignal(false);
@@ -89,7 +89,7 @@ const [showSecretValues, setSecretValues] = createSignal(false);
 ```
 
 ## InputText
-```jsx
+```tsx
 import { Button, InputText } from "@gomdle/solid-gomdle-ui";
 
 const [signinData, setSigninData] = createSignal({userid: '', passwd: ''});
@@ -108,5 +108,42 @@ const [signinData, setSigninData] = createSignal({userid: '', passwd: ''});
 	name="passwd"
 	value={signinData().passwd}
 	onChange={e => setSigninData(data => ({...data, passwd: e.value}))}
+/>
+```
+
+## DataTable
+DataTable component is implemented on [Tanstack Headless Table](https://tanstack.com/table/latest). You may need to `npm install @tanstack/solid-table`.
+
+```tsx
+import { createColumnHelper } from '@tanstack/solid-table';
+import { DataTable } from '@gomdle/solid-gomdle-ui';
+
+const [selection, setSelection] = createSignal<number[]>([]); 
+
+const columnHelper = createColumnHelper<TableRowData>();
+const columns = [
+	columnHelper.display({
+		header: 'Date',
+		cell: ({row: {original: rowData}}) => formatDate(rowData.date),
+		size: 100,
+		meta: { class: 'text-left' }
+	}),
+	columnHelper.accessor('sales', {
+		header: 'Sales',
+		cell: ctx => ctx.getValue()?.toLocaleString(),
+		size: 60,
+		meta: { class: 'text-center' }
+	}),
+	// ...
+];
+
+<DataTable stripedRows gridLines
+	class="border border-gray-300 text-nowrap text-[0.75rem]"
+	columns={columns}
+	data={data()}
+	selection={selection()}
+	onRowClick={(data, rowIndex) => setSelection([rowIndex])}
+	onRowDoubleClick={(data, rowIndex) => console.log(`double click on data[${rowIndex}]`)}
+	rowClass={rowData => (rowData.sales >= 1000000 ? 'font-bold' : undefined)}
 />
 ```

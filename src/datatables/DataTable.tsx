@@ -24,6 +24,7 @@ interface Props<TData> {
 	height?: string;
 	class?: string;
 	style?: JSX.CSSProperties;
+	rowClass?: string | ((data: TData, rowIndex: number, row: Row<TData>) => string | undefined);
 	onRowClick?: (data: TData, rowIndex: number, row: Row<TData>) => void;
 	onRowDoubleClick?: (data: TData, rowIndex: number, row: Row<TData>) => void;
 }
@@ -113,7 +114,9 @@ export function DataTable<TData>(props: Props<TData>) {
 				<tbody>
 					<For each={table().getRowModel().rows}>
 						{(row, rowIndex) => (
-							<tr classList={{ selected: row.getIsSelected() }}
+							<tr
+								class={isFunction(props.rowClass) ? props.rowClass(row.original, rowIndex(), row) : props.rowClass}
+								classList={{ selected: row.getIsSelected() }}
 								onClick={() => props.onRowClick?.(row.original, rowIndex(), row)}
 								onDblClick={() => props.onRowDoubleClick?.(row.original, rowIndex(), row)}
 							>
