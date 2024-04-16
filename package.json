@@ -1,7 +1,7 @@
 {
 	"name": "@gomdle/solid-gomdle-ui",
 	"description": "UI components for SolidJs",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"keywords": [
 		"ui",
 		"solidjs"
