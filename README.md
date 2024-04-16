@@ -70,6 +70,12 @@ const [value, setValue] = createSignal(new Date());
 	value={value()}
 	onChange={e => setValue(e.value)}
 />
+
+<DatePicker
+	view="month"
+	value={value()}
+	onChange={e => setValue(e.value)}
+/>
 ```
 
 ## InputSwitch

@@ -1,4 +1,4 @@
-import { For, JSX, createMemo, createSignal } from "solid-js";
+import { For, JSX, Match, Switch, createMemo, createSignal } from "solid-js";
 import { Month } from "../utils/datelike";
 import { Overlay } from "../overlays/Overlay";
 import { FaSolidChevronLeft, FaSolidChevronRight } from "solid-icons/fa";
@@ -77,7 +77,17 @@ export function DatePicker(props: Props) {
 			position={position()}
 			onDismiss={onDismiss}
 		>
-			<DatePickerPanel value={props.value} onSelect={props.onChange} />
+			<Switch>
+				<Match when={props.view !== 'month'}>
+					<DatePickerPanel class="p-2" value={props.value} onSelect={props.onChange} />
+				</Match>
+				<Match when={props.view === 'month'}>
+					<MonthPickerPanel class="p-2"
+						value={props.value && new Month(props.value)}
+						onSelect={e => props.onChange?.({value: e.value.date0})}
+					/>
+				</Match>
+			</Switch>
 		</Overlay>
 	</>;
 }
@@ -86,8 +96,10 @@ interface DatePickerPanelProps {
 	value?: Date;
 	onChange?: (e: {value: Date}) => void;
 	onSelect?: (event: {value: Date}) => void;
+	class?: string;
 }
 function DatePickerPanel(props: DatePickerPanelProps) {
+	const [showMonthPicker, setShowMonthPicker] = createSignal(false);
 	const [page, setPage] = createSignal(new Month(props.value || new Date()));
 	const pages = createMemo(() => {
 		const p = page();
@@ -95,7 +107,7 @@ function DatePickerPanel(props: DatePickerPanelProps) {
 	});
 
 	const onMove = (pages: number) => setPage(page => page.add(pages));
-	const onMoveToday = () => setPage(new Month(new Date()));
+	const onClickOnHead = () => setShowMonthPicker(true);
 
 	const onClickOnDate = (date: Date) => {
 		props.onSelect?.({value: date});
@@ -105,30 +117,138 @@ function DatePickerPanel(props: DatePickerPanelProps) {
 	};
 
 	return (
-		<div class="p-2">
+		<Switch>
+			<Match when={showMonthPicker()}>
+				<MonthPickerPanel
+					class="p-2"
+					value={page()}
+					onSelect={e => {
+						setShowMonthPicker(false);
+						setPage(e.value);
+					}}
+					onClickOnHead={() => setShowMonthPicker(false)}
+				/>
+			</Match>
+			<Match when={!showMonthPicker()}>
+				<div class={props.class}>
+					<div class="flex items-center gap-1 mb-2">
+						<Button class="grow-0" text icon={<FaSolidChevronLeft/>} onClick={() => onMove(-1)} />
+						<Button class="grow" text label={page().toString()} onClick={onClickOnHead} />
+						<Button class="grow-0" text icon={<FaSolidChevronRight/>} onClick={() => onMove(1)} />
+					</div>
+					<div class="DatePickerSlidePlace">
+						<For each={pages()}>
+							{time => {
+								const month = new Month(new Date(time));
+								return (
+									<Calendar
+										classList={{
+											"slide-item": true,
+											"slide-left": month.compare(page()) < 0,
+											"slide-right": month.compare(page()) > 0,
+										}}
+										month={month}
+										selected={props.value}
+										onClickOnDate={onClickOnDate}
+									/>
+								);
+							}}
+						</For>
+					</div>
+				</div>
+			</Match>
+		</Switch>
+	);
+}
+
+interface MonthPickerPanelProps {
+	value?: Month;
+	onSelect?: (event: {value: Month}) => void;
+	onClickOnHead?: () => void;
+	class?: string;
+}
+function MonthPickerPanel(props: MonthPickerPanelProps) {
+	const [page, setPage] = createSignal(props.value?.getYear() || new Date().getFullYear());
+	const pages = createMemo(() => {
+		const p = page();
+		return [p - 1, p, p + 1];
+	});
+
+	const onMove = (pages: number) => setPage(page => page + pages);
+	const onClickOnHead = () => {
+		if (props.onClickOnHead) {
+			props.onClickOnHead();
+		} else {
+			setPage(new Date().getFullYear());
+		}
+	};
+
+	const onClickOnMonth = (month: Month) => {
+		props.onSelect?.({value: month});
+		if (page() !== month.getYear()) {
+			setPage(month.getYear());
+		}
+	};
+
+	return (
+		<div class={props.class}>
 			<div class="flex items-center gap-1 mb-2">
 				<Button class="grow-0" text icon={<FaSolidChevronLeft/>} onClick={() => onMove(-1)} />
-				<Button class="grow" text label={page().toString()} onClick={() => onMoveToday() } />
+				<Button class="grow" text label={page().toString()} onClick={onClickOnHead} />
 				<Button class="grow-0" text icon={<FaSolidChevronRight/>} onClick={() => onMove(1)} />
 			</div>
-			<div class="CalendarPlace">
+			<div class="DatePickerSlidePlace">
 				<For each={pages()}>
-					{time => {
-						const month = new Month(new Date(time));
+					{year => {
 						return (
-							<Calendar
+							<MonthListView
 								classList={{
-									"slide-left": month.compare(page()) < 0,
-									"slide-right": month.compare(page()) > 0,
+									"slide-item": true,
+									"slide-left": year < page(),
+									"slide-right": year > page(),
 								}}
-								month={month}
+								year={year}
 								selected={props.value}
-								onClickOnDate={onClickOnDate}
+								onClickOnMonth={onClickOnMonth}
 							/>
 						);
 					}}
 				</For>
 			</div>
+		</div>
+	);
+}
+
+interface MonthListViewProps {
+	year: number;
+	selected?: Month;
+	classList?: Record<string, boolean>;
+	onClickOnMonth?: (month: Month) => void;
+}
+function MonthListView(props: MonthListViewProps) {
+	const months = () => {
+		const m = new Month(new Date(props.year, 0, 1));
+		return [0,1,2,3,4,5,6,7,8,9,10,11].map(i => m.add(i));
+	}
+
+	return (
+		<div
+			class="MonthList"
+			classList={props.classList}
+		>
+			<For each={months()}>
+				{month => (
+					<div
+						classList={{
+							'month': true,
+							'selected': props.selected?.compare(month) === 0,
+						}}
+						onClick={() => props.onClickOnMonth?.(month)}
+					>
+						{month.date0.toLocaleString('default', {month: 'long'})}
+					</div>
+				)}
+			</For>
 		</div>
 	);
 }
