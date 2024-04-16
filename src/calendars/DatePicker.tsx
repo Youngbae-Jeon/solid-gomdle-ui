@@ -1,9 +1,10 @@
-import { JSX, createSignal } from "solid-js";
+import { For, JSX, createMemo, createSignal } from "solid-js";
 import { Month } from "../utils/datelike";
 import { Overlay } from "../overlays/Overlay";
 import { FaSolidChevronLeft, FaSolidChevronRight } from "solid-icons/fa";
 import { Button } from "../buttons/Button";
 import { Calendar } from "./Calendar";
+import "./DatePicker.scss";
 
 interface Props {
 	value?: Date;
@@ -88,9 +89,20 @@ interface DatePickerPanelProps {
 }
 function DatePickerPanel(props: DatePickerPanelProps) {
 	const [page, setPage] = createSignal(new Month(props.value || new Date()));
+	const pages = createMemo(() => {
+		const p = page();
+		return [p.add(-1).getTime(), p.getTime(), p.add(1).getTime()];
+	});
 
 	const onMove = (pages: number) => setPage(page => page.add(pages));
 	const onMoveToday = () => setPage(new Month(new Date()));
+
+	const onClickOnDate = (date: Date) => {
+		props.onSelect?.({value: date});
+		if (page().date0.compareMonth(date) !== 0) {
+			setPage(new Month(date));
+		}
+	};
 
 	return (
 		<div class="p-2">
@@ -99,7 +111,24 @@ function DatePickerPanel(props: DatePickerPanelProps) {
 				<Button class="grow" text label={page().toString()} onClick={() => onMoveToday() } />
 				<Button class="grow-0" text icon={<FaSolidChevronRight/>} onClick={() => onMove(1)} />
 			</div>
-			<Calendar month={page()} selected={props.value} onClickOnDate={date => props.onSelect?.({value: date})} />
+			<div class="CalendarPlace">
+				<For each={pages()}>
+					{time => {
+						const month = new Month(new Date(time));
+						return (
+							<Calendar
+								classList={{
+									"slide-left": month.compare(page()) < 0,
+									"slide-right": month.compare(page()) > 0,
+								}}
+								month={month}
+								selected={props.value}
+								onClickOnDate={onClickOnDate}
+							/>
+						);
+					}}
+				</For>
+			</div>
 		</div>
 	);
 }

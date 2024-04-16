@@ -17,11 +17,14 @@ export class Month {
 	getWeeks(count?: number): Week[] {
 		const weeks: Week[] = [];
 		let cursor = this.getFirstWeek();
-		while (cursor.date0.compareMonth(this.date0) <= 0) {
+		while (cursor.date0.compareMonth(this.date0) <= 0 || (count && weeks.length < count)) {
 			weeks.push(cursor);
 			cursor = cursor.getNextWeek();
 		}
 		return weeks;
+	}
+	getTime(): number {
+		return this.date0.getTime();
 	}
 	add(months: number): Month {
 		const next = new Date(this.date0);
@@ -30,6 +33,9 @@ export class Month {
 	}
 	toString(): string {
 		return this.date0.getFullYear() + '-' + pad2(this.date0.getMonth() + 1);
+	}
+	compare(other: Month): number {
+		return this.date0.compareMonth(other.date0);
 	}
 }
 
@@ -59,6 +65,12 @@ export class Week {
 			next.setDate(next.getDate() + i);
 			return next;
 		});
+	}
+	getTime(): number {
+		return this.date0.getTime();
+	}
+	compare(other: Week): number {
+		return this.date0.compareDate(other.date0);
 	}
 }
 

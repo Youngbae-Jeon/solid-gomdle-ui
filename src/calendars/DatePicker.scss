@@ -1,0 +1,21 @@
+.CalendarPlace {
+	position: relative;
+	overflow: hidden;
+
+	.Calendar {
+		transition: transform 200ms;
+
+		&.slide-left {
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: translateX(-100%);
+		}
+		&.slide-right {
+			position: absolute;
+			top: 0;
+			left: 0;
+			transform: translateX(100%);
+		}
+	}
+}
