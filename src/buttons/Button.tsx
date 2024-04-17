@@ -48,7 +48,7 @@ export function Button(props: Props) {
 			<Switch>
 				<Match when={props.icon && props.label}>
 					{props.icon}
-					<span class="ml-1">{props.label}</span>
+					<span class="label">{props.label}</span>
 				</Match>
 				<Match when={props.icon}>
 					{props.icon}

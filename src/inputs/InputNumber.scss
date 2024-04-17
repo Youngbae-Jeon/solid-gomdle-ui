@@ -1,0 +1,6 @@
+.InputNumber {
+	@apply inline-block py-2.5 px-3 rounded border leading-none
+		text-[0.75rem] font-medium outline-none ring-offset-0
+		focus:ring-2 focus:ring-indigo-300 focus:ring-offset-2 focus:relative focus:z-[1]
+		transition duration-200 whitespace-nowrap;
+}

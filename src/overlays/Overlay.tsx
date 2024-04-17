@@ -8,7 +8,7 @@ interface Props {
 	when: any;
 	transition?: string;
 	position: {left: number | 'center', top: number | 'center'};
-	children: JSX.Element;
+	children: JSX.Element | JSX.Element[];
 	class?: string;
 	style?: JSX.CSSProperties;
 	onDismiss?: () => void;

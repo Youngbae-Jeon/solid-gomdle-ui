@@ -5,5 +5,8 @@ export * from "./calendars/DatePicker";
 export * from "./datatables/DataTable";
 export * from "./inputs/InputSwitch";
 export * from "./inputs/InputText";
+export * from "./inputs/InputNumber";
 export * from "./overlays/Overlay";
+export * from "./overlays/Dialog";
+export * from "./overlays/ConfirmDialog";
 export * from "./utils/datelike";

@@ -39,4 +39,8 @@
 			@apply hover:bg-gray-100 hover:border-gray-100;
 		}
 	}
+
+	* + .label {
+		@apply ml-1;
+	}
 }

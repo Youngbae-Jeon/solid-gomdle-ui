@@ -1,0 +1,17 @@
+.Dialog {
+	@apply border border-gray-200 rounded-md shadow-lg drop-shadow-md;
+
+	> .header {
+		@apply flex w-full items-center p-2 border-b font-medium;
+
+		> div {
+			@apply grow px-2;
+		}
+		> .closer {
+			@apply grow-0 inline;
+		}
+	}
+	> .body {
+		@apply p-4;
+	}
+}

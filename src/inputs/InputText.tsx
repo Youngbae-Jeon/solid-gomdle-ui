@@ -9,6 +9,7 @@ interface Props {
 	placeholder?: string;
 	value?: string;
 	disabled?: boolean;
+	autoComplete?: 'off' | 'on';
 	ref?: HTMLInputElement;
 	class?: string;
 	classList?: {[key: string]: boolean};
@@ -30,6 +31,7 @@ export function InputText(props: Props) {
 			placeholder={props.placeholder}
 			value={props.value || ''}
 			disabled={props.disabled}
+			autocomplete={props.autoComplete}
 			onInput={e => props.onInput?.({value: e.currentTarget.value})}
 			onChange={e => props.onChange?.({value: e.currentTarget.value})}
 		/>
