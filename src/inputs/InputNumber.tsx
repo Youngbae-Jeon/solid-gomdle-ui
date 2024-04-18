@@ -9,6 +9,7 @@ interface Props {
 	min?: number;
 	max?: number;
 	disabled?: boolean;
+	readOnly?: boolean;
 	ref?: HTMLInputElement;
 	class?: string;
 	classList?: {[key: string]: boolean};
@@ -31,6 +32,7 @@ export function InputNumber(props: Props) {
 			min={props.min}
 			max={props.max}
 			disabled={props.disabled}
+			readOnly={props.readOnly}
 			onInput={e => props.onInput?.({value: Number(e.currentTarget.value)})}
 			onChange={e => props.onChange?.({value: Number(e.currentTarget.value)})}
 		/>
