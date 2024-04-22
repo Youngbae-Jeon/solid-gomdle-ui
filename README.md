@@ -130,6 +130,23 @@ import { InputNumber } from "@gomdle/solid-gomdle-ui";
 
 ```
 
+## InputSelect
+```tsx
+import { InputSelect } from "@gomdle/solid-gomdle-ui";
+
+const PriceTypes = [
+	{ label: 'Fixed Price', value: 'limited' },
+	{ label: 'Market Price', value: 'unlimited' },
+];
+
+<InputSelect
+	name="price_type"
+	value={inputs().price_type}
+	options={PriceTypes}
+	onChange={e => setInputs(orderData => ({...orderData, price_type: e.value}))}
+/>
+```
+
 ## Dialog
 ```tsx
 import { Dialog } from "@gomdle/solid-gomdle-ui";

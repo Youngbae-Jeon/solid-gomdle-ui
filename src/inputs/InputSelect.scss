@@ -1,0 +1,19 @@
+.InputSelect {
+	@apply flex items-center gap-2;
+
+	.dropdown-indicator {
+		@apply inline-block;
+	}
+}
+
+.InputSelectOverlay {
+	@apply border border-gray-200 rounded-md shadow-lg drop-shadow-md p-1;
+
+	.option-item {
+		@apply p-0.5;
+
+		> .Button {
+			@apply w-full text-left;
+		}
+	}
+}

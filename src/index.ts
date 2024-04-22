@@ -6,6 +6,7 @@ export * from "./datatables/DataTable";
 export * from "./inputs/InputSwitch";
 export * from "./inputs/InputText";
 export * from "./inputs/InputNumber";
+export * from "./inputs/InputSelect";
 export * from "./overlays/Overlay";
 export * from "./overlays/Dialog";
 export * from "./overlays/ConfirmDialog";
