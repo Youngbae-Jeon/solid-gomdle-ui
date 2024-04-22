@@ -4,15 +4,18 @@ import { Button } from "../buttons/Button";
 import { FaSolidCheck } from "solid-icons/fa";
 import clsx from "clsx";
 import './ConfirmDialog.scss';
+import { Show } from "solid-js";
 
 interface Props {
 	visible: boolean;
 	header?: JSX.Element;
 	message: JSX.Element;
+	acceptLabel?: string;
+	cancelLabel?: string;
 	class?: string;
 	style?: JSX.CSSProperties;
 	onAccept?: () => void;
-	onCancel?: () => void;
+	onReject?: () => void;
 	onClose?: () => void;
 }
 export function ConfirmDialog(props: Props) {
@@ -28,13 +31,17 @@ export function ConfirmDialog(props: Props) {
 				{props.message}
 			</div>
 			<div class="button-bar">
-				<Button text
-					label="아니오"
-					onClick={() => props.onCancel?.()}
-				/>
+				<Show when={props.onReject}>
+					<Button text
+						class="btn-reject"
+						label={props.cancelLabel || "아니요"}
+						onClick={() => props.onReject?.()}
+					/>
+				</Show>
 				<Button
+					class="btn-accept"
 					icon={<FaSolidCheck />}
-					label="예"
+					label={props.acceptLabel || "예"}
 					onClick={() => props.onAccept?.()}
 				/>
 			</div>

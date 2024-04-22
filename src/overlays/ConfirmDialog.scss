@@ -2,8 +2,14 @@
 	.button-bar {
 		@apply flex justify-between mt-4;
 
-		button svg {
-			@apply inline;
+		button {
+			&.btn-accept {
+				@apply ml-auto;
+			}
+
+			svg {
+				@apply inline;
+			}
 		}
 	}
 }

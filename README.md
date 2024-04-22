@@ -154,7 +154,7 @@ import { ConfirmDialog } from "@gomdle/solid-gomdle-ui";
 	visible={showDialog()}
 	message="Are you sure?"
 	onAccept={() => console.log("You said you\'are sure")}
-	onCancel={() => setShowDialog(false)}
+	onReject={() => setShowDialog(false)}
 />
 ```
 
