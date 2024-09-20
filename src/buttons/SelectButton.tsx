@@ -1,11 +1,11 @@
-import { For, JSX, createMemo } from "solid-js";
+import { For, JSX, JSXElement, createMemo } from "solid-js";
 import { Button } from "./Button";
 import clsx from "clsx";
 import "./SelectButton.scss";
 
 interface Props<T> {
 	value: T;
-	options: ({value: T, label: string} | T)[];
+	options: ({value: T, label?: string, icon?: JSX.Element} | T)[];
 	class?: string;
 	style?: JSX.CSSProperties;
 	onChange?: (e: {value: T}) => void;
@@ -14,7 +14,7 @@ interface Props<T> {
 export function SelectButton<T extends string | number>(props: Props<T>) {
 
 	const options = createMemo(() => {
-		return props.options.map((option): {value: T, label: string} => {
+		return props.options.map((option): {value: T, label?: string, icon?: JSX.Element} => {
 			if (typeof option === 'string' || typeof option === 'number') {
 				return {value: option, label: option.toString()};
 			}
@@ -26,7 +26,9 @@ export function SelectButton<T extends string | number>(props: Props<T>) {
 		<For each={options()}>
 			{option => (
 				<Button
-					label={option.label} outlined={option.value !== props.value}
+					label={option.label}
+					icon={option.icon}
+					outlined={option.value !== props.value}
 					onClick={() => props.onChange?.({value: option.value})}
 				/>
 			)}

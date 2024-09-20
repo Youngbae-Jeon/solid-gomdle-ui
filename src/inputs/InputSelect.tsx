@@ -4,7 +4,6 @@ import { Button } from "../buttons/Button";
 import { FaSolidChevronDown } from "solid-icons/fa";
 import { Overlay } from "../overlays/Overlay";
 import "./InputSelect.scss";
-import { isString } from "lodash";
 
 interface Props<T> {
 	name?: string;

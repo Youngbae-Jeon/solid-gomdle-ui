@@ -30,11 +30,13 @@ import { FaSolidCheck } from "solid-icons/fa";
 ## Select Button
 ```tsx
 import { SelectButton } from "@gomdle/solid-gomdle-ui";
+import { FaSolidBox } from "solid-icons/fa";
 
 const options = [
 	{value: 'A', label: 'Apple'},
 	{value: 'B', label: 'Banana'},
 	{value: 'C', label: 'Cacao'},
+	{value: '?', icon: <FaSolidBox/>},
 ];
 
 const [selected, setSelected] = createSignal(options[0].value);
