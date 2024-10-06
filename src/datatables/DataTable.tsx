@@ -22,6 +22,7 @@ interface Props<TData> {
 	stripedRows?: boolean;
 	gridLines?: boolean;
 	height?: string;
+	leftStickyColumns?: number;
 	class?: string;
 	style?: JSX.CSSProperties;
 	rowClass?: string | ((data: TData, rowIndex: number, row: Row<TData>) => string | undefined);
@@ -70,14 +71,16 @@ export function DataTable<TData>(props: Props<TData>) {
 	const lastHeaderGroup = () => last(table().getHeaderGroups());
 	const hasAnyFooter = createMemo(() => !!table().getFooterGroups().find(hasAnyFooterColumn));
 
+	createEffect(() => {
+		console.log("gridLines", props.gridLines);
+	});
 	return (
-		<div class={props.class}
-			classList={{
+		<div class={clsx(props.class, {
 				"DataTable": true,
 				"striped-rows": props.stripedRows,
 				"grid-lines": props.gridLines,
 				"fixed-height": !!props.height
-			}}
+			})}
 			style={style()}>
 			<table>
 				<colgroup>
@@ -92,10 +95,13 @@ export function DataTable<TData>(props: Props<TData>) {
 						{headerGroup => (
 							<tr>
 								<For each={headerGroup.headers}>
-									{header => {
+									{(header, colIdx) => {
 										const classConfig = header.column.columnDef.meta?.class;
 										return (
-											<th class={classConfig && renderHeaderCellClass(classConfig, header)}
+											<th class={clsx(
+												classConfig && renderHeaderCellClass(classConfig, header),
+												colIdx() < (props.leftStickyColumns || 0) && 'sticky-left'
+											)}
 												style={header.column.columnDef.meta?.style}
 												colSpan={header.colSpan}
 											>
@@ -121,10 +127,13 @@ export function DataTable<TData>(props: Props<TData>) {
 								onDblClick={() => props.onRowDoubleClick?.(row.original, rowIndex(), row)}
 							>
 								<For each={row.getVisibleCells()}>
-									{cell => {
+									{(cell, colIdx) => {
 										const classConfig = cell.column.columnDef.meta?.class;
 										return (
-											<td class={classConfig && renderDataCellClass(cell.getValue(), classConfig, cell)}
+											<td class={clsx(
+												classConfig && renderDataCellClass(cell.getValue(), classConfig, cell),
+												colIdx() < (props.leftStickyColumns || 0) && 'sticky-left'
+											)}
 												style={cell.column.columnDef.meta?.style}
 											>
 												{flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -143,10 +152,13 @@ export function DataTable<TData>(props: Props<TData>) {
 								<Show when={hasAnyFooterColumn(footerGroup)}>
 									<tr>
 										<For each={footerGroup.headers}>
-											{footer => {
+											{(footer, colIdx) => {
 												const classConfig = footer.column.columnDef.meta?.class;
 												return (
-													<td class={classConfig && renderHeaderCellClass(classConfig, footer)}
+													<td class={clsx(
+														classConfig && renderHeaderCellClass(classConfig, footer),
+														colIdx() < (props.leftStickyColumns || 0) && 'sticky-left'
+													)}
 														style={footer.column.columnDef.meta?.style}
 														colSpan={footer.colSpan}
 													>
