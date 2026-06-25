@@ -14,7 +14,7 @@ declare module '@tanstack/table-core' {
 	}
 }
 
-interface Props<TData> {
+interface DataTableProps<TData> {
 	columns: ColumnDef<TData, any>[];
 	data: TData[];
 	selection?: number[];
@@ -29,7 +29,7 @@ interface Props<TData> {
 	onRowClick?: (data: TData, rowIndex: number, row: Row<TData>) => void;
 	onRowDoubleClick?: (data: TData, rowIndex: number, row: Row<TData>) => void;
 }
-export function DataTable<TData>(props: Props<TData>) {
+export function DataTable<TData>(props: DataTableProps<TData>) {
 	const table = createMemo(() => createSolidTable({
 		columns: props.columns,
 		get data () { return props.data; },

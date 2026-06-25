@@ -3,7 +3,7 @@ import './Calendar.scss';
 import { Month } from "../utils/datelike";
 import clsx from "clsx";
 
-interface Props {
+export interface CalendarProps {
 	month: Month;
 	selected?: Date;
 	alwaysShowSixWeeks?: boolean;
@@ -13,7 +13,7 @@ interface Props {
 	style?: JSX.CSSProperties;
 }
 
-export function Calendar(props: Props) {
+export function Calendar(props: CalendarProps) {
 	const weeks = () => props.month.getWeeks(props.alwaysShowSixWeeks ? 6 : undefined);
 
 	return (

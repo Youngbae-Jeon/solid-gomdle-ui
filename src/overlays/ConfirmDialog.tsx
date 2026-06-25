@@ -6,7 +6,7 @@ import clsx from "clsx";
 import './ConfirmDialog.scss';
 import { Show } from "solid-js";
 
-interface Props {
+interface ConfirmDialogProps {
 	visible: boolean;
 	header?: JSX.Element;
 	message: JSX.Element;
@@ -18,7 +18,7 @@ interface Props {
 	onReject?: () => void;
 	onClose?: () => void;
 }
-export function ConfirmDialog(props: Props) {
+export function ConfirmDialog(props: ConfirmDialogProps) {
 	return (
 		<Dialog
 			visible={props.visible}

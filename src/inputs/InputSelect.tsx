@@ -5,7 +5,7 @@ import { FaSolidChevronDown } from "solid-icons/fa";
 import { Overlay } from "../overlays/Overlay";
 import "./InputSelect.scss";
 
-interface Props<T> {
+interface InputSelectProps<T> {
 	name?: string;
 	placeholder?: string;
 	value?: T;
@@ -18,7 +18,7 @@ interface Props<T> {
 	onChange?: (e: {value: T}) => void;
 }
 
-export function InputSelect<T>(props: Props<T>) {
+export function InputSelect<T>(props: InputSelectProps<T>) {
 	const [value, setValue] = createSignal<T | undefined>(props.value);
 
 	const selected = () => props.options.find(option => option.value === value());
@@ -91,7 +91,7 @@ export function InputSelect<T>(props: Props<T>) {
 			onDismiss={onDismiss}
 		>
 			<For each={props.options}>
-				{item => 
+				{item =>
 					<div class="option-item">
 						<Button text
 							icon={item.icon}

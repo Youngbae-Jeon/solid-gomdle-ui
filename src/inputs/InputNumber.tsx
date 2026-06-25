@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { JSX } from "solid-js";
 import "./InputNumber.scss";
 
-interface Props {
+interface InputNumberProps {
 	id?: string;
 	name?: string;
 	value?: number;
@@ -18,7 +18,7 @@ interface Props {
 	onChange?: (e: {value: number}) => void;
 }
 
-export function InputNumber(props: Props) {
+export function InputNumber(props: InputNumberProps) {
 	return (
 		<input
 			ref={props.ref}

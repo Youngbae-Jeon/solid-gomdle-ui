@@ -6,7 +6,7 @@ import { Button } from "../buttons/Button";
 import { Calendar } from "./Calendar";
 import "./DatePicker.scss";
 
-interface Props {
+export interface DatePickerProps {
 	value?: Date;
 	view?: "date" | "month";
 	anchor?: HTMLElement;
@@ -14,7 +14,7 @@ interface Props {
 	style?: JSX.CSSProperties;
 	onChange?: (e: {value: Date}) => void;
 }
-export function DatePicker(props: Props) {
+export function DatePicker(props: DatePickerProps) {
 	const text = () => {
 		if (props.value) {
 			if (props.view === 'month') {
@@ -92,13 +92,13 @@ export function DatePicker(props: Props) {
 	</>;
 }
 
-interface DatePickerPanelProps {
+export interface DatePickerPanelProps {
 	value?: Date;
 	onChange?: (e: {value: Date}) => void;
 	onSelect?: (event: {value: Date}) => void;
 	class?: string;
 }
-function DatePickerPanel(props: DatePickerPanelProps) {
+export function DatePickerPanel(props: DatePickerPanelProps) {
 	const [showMonthPicker, setShowMonthPicker] = createSignal(false);
 	const [page, setPage] = createSignal(new Month(props.value || new Date()));
 	const pages = createMemo(() => {
@@ -161,13 +161,13 @@ function DatePickerPanel(props: DatePickerPanelProps) {
 	);
 }
 
-interface MonthPickerPanelProps {
+export interface MonthPickerPanelProps {
 	value?: Month;
 	onSelect?: (event: {value: Month}) => void;
 	onClickOnHead?: () => void;
 	class?: string;
 }
-function MonthPickerPanel(props: MonthPickerPanelProps) {
+export function MonthPickerPanel(props: MonthPickerPanelProps) {
 	const [page, setPage] = createSignal(props.value?.getYear() || new Date().getFullYear());
 	const pages = createMemo(() => {
 		const p = page();

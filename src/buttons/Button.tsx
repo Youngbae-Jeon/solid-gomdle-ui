@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { JSX, Match, Show, Switch, createMemo } from "solid-js";
 import "./Button.scss";
 
-interface Props {
+interface ButtonProps {
 	type?: 'button' | 'submit' | 'reset';
 	icon?: JSX.Element;
 	label?: string;
@@ -20,7 +20,7 @@ interface Props {
 	onFocus?: (e: {currentTarget: HTMLButtonElement}) => void;
 	onBlur?: (e: {currentTarget: HTMLButtonElement}) => void;
 }
-export function Button(props: Props) {
+export function Button(props: ButtonProps) {
 	const severity = () => {
 		if (props.text) return "text";
 		return 'primary';

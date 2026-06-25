@@ -2,7 +2,7 @@ import clsx from "clsx";
 import { JSX } from "solid-js";
 import "./InputText.scss";
 
-interface Props {
+interface InputTextProps {
 	id?: string;
 	name?: string;
 	type?: 'text' | 'password';
@@ -19,7 +19,7 @@ interface Props {
 	onChange?: (e: {value: string}) => void;
 }
 
-export function InputText(props: Props) {
+export function InputText(props: InputTextProps) {
 	return (
 		<input
 			ref={props.ref}

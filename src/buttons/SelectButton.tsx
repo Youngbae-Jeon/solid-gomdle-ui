@@ -3,7 +3,7 @@ import { Button } from "./Button";
 import clsx from "clsx";
 import "./SelectButton.scss";
 
-interface Props<T> {
+interface SelectButtonProps<T> {
 	value: T;
 	options: ({value: T, label?: string, icon?: JSX.Element} | T)[];
 	class?: string;
@@ -11,7 +11,7 @@ interface Props<T> {
 	onChange?: (e: {value: T}) => void;
 }
 
-export function SelectButton<T extends string | number>(props: Props<T>) {
+export function SelectButton<T extends string | number>(props: SelectButtonProps<T>) {
 
 	const options = createMemo(() => {
 		return props.options.map((option): {value: T, label?: string, icon?: JSX.Element} => {

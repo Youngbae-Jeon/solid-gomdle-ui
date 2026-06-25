@@ -5,7 +5,7 @@ import { Button } from "../buttons/Button";
 import { FaSolidXmark } from "solid-icons/fa";
 import './Dialog.scss';
 
-interface Props {
+interface DialogProps {
 	visible: boolean;
 	header?: JSX.Element;
 	children: JSX.Element | JSX.Element[];
@@ -13,7 +13,7 @@ interface Props {
 	style?: JSX.CSSProperties;
 	onClose?: () => void;
 }
-export function Dialog(props: Props) {
+export function Dialog(props: DialogProps) {
 	return (
 		<Overlay
 			when={props.visible}

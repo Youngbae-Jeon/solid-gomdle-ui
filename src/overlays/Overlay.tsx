@@ -4,7 +4,7 @@ import clsx from "clsx";
 import { Transition } from "solid-transition-group";
 import "./Overlay.scss";
 
-interface Props {
+interface OverlayProps {
 	when: any;
 	transition?: string;
 	position: {left: number | 'center', top: number | 'center'};
@@ -13,7 +13,7 @@ interface Props {
 	style?: JSX.CSSProperties;
 	onDismiss?: () => void;
 }
-export function Overlay(props: Props) {
+export function Overlay(props: OverlayProps) {
 	const [local, others] = splitProps(props, ["when"]);
 	return (
 		<Portal>
@@ -36,7 +36,7 @@ export function Overlay(props: Props) {
 
 type RectSize = {width: number, height: number};
 
-function OverlayInner(props: Omit<Props, 'when'>) {
+function OverlayInner(props: Omit<OverlayProps, 'when'>) {
 	const [windowSize, setWindowSize] = createSignal<RectSize>({width: window.innerWidth, height: window.innerHeight});
 	const [overlaySize, setOverlaySize] = createSignal<RectSize>({width: 0, height: 0});
 
